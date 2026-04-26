@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Full name" },
+        "email": { "type": "string", "description": "Email address" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "createdAt"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Travel booking details",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["Flight", "Hotel"] },
+        "name": { "type": "string", "description": "The destination or hotel name" },
+        "date": { "type": "string", "description": "Date of travel or check-in" },
+        "price": { "type": "number" },
+        "status": { "type": "string", "enum": ["Confirmed", "Cancelled"] },
+        "userId": { "type": "string", "description": "ID of the user who booked" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "name", "date", "price", "status", "userId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile documents"
+    },
+    "/users/{userId}/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "User specific bookings"
+    }
+  }
+}
